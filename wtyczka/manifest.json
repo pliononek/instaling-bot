@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "InstaLing Bot — uniwersalny asystent",
+  "version": "2.0.0",
+  "description": "Kreator konta, auto-logowanie i rozwiązywanie sesji InstaLing. Działa dla dowolnego ucznia.",
+  "minimum_chrome_version": "111",
+  "host_permissions": [
+    "*://*.instaling.pl/*",
+    "https://api.mymemory.translated.net/*",
+    "https://translate.googleapis.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://*.instaling.pl/*"],
+      "js": ["hooks.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["*://*.instaling.pl/*"],
+      "js": ["config.js", "content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["hooks.js"],
+      "matches": ["*://*.instaling.pl/*"]
+    }
+  ]
+}

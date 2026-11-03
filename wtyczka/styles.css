@@ -1,0 +1,464 @@
+/* InstaLing Bot — style HUD, kreatora i instalatora (wspólne dla wtyczki i userscriptu). */
+#il-root,
+#il-root * {
+  box-sizing: border-box;
+}
+
+/* ------------------------------------------------------------------ FAB */
+#il-fab {
+  position: fixed;
+  right: calc(14px + env(safe-area-inset-right, 0px));
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  z-index: 999999;
+  width: 58px;
+  height: 58px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb, #0ea5e9);
+  color: #fff;
+  font: 800 15px/1 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: 0.5px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.38);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#il-root:not(.il-open) #il-fab {
+  display: block;
+}
+
+#il-root.il-open #il-fab {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ HUD */
+#il-hud {
+  position: fixed;
+  top: calc(10px + env(safe-area-inset-top, 0px));
+  right: calc(10px + env(safe-area-inset-right, 0px));
+  z-index: 999999;
+  display: none;
+  width: min(92vw, 380px);
+  max-height: calc(100vh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  overflow: auto;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  background: rgba(13, 18, 30, 0.97);
+  color: #eaf1ff;
+  font: 13px/1.35 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  -webkit-text-size-adjust: 100%;
+}
+
+#il-root.il-open #il-hud {
+  display: block;
+}
+
+#il-hud button,
+#il-hud input,
+#il-root .il-modal button,
+#il-root .il-modal input {
+  font: inherit;
+}
+
+#il-hud .il-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0 0 8px;
+}
+
+#il-hud .il-title {
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+#il-hud .il-icon {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #eaf1ff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+#il-hud .il-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#il-hud .il-account-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  background: rgba(56, 189, 248, 0.1);
+}
+
+#il-hud #il-account {
+  overflow: hidden;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#il-hud .il-link {
+  flex: none;
+  padding: 4px 2px;
+  border: 0;
+  background: transparent;
+  color: #7dd3fc;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+#il-hud .il-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+#il-hud .il-status-row {
+  min-height: 28px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+#il-hud #il-status {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#il-hud .il-badge {
+  flex: none;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.35);
+  color: #bfdbfe;
+  font-weight: 700;
+}
+
+/* ------------------------------------------------------------- progress */
+#il-hud .il-progress {
+  display: none;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#il-hud .il-progress.il-visible {
+  display: block;
+}
+
+#il-hud #il-progress-bar {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #22c55e, #38bdf8);
+  transition: width 0.35s ease;
+}
+
+/* ---------------------------------------------------------------- main */
+#il-hud .il-main {
+  width: 100%;
+  min-height: 54px;
+  padding: 10px 12px;
+  border: 1px solid rgba(34, 197, 94, 0.65);
+  border-radius: 14px;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+  box-shadow: 0 8px 22px rgba(34, 197, 94, 0.28);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#il-hud .il-main.il-running {
+  border-color: rgba(248, 113, 113, 0.7);
+  background: linear-gradient(135deg, #b91c1c, #ef4444);
+  box-shadow: 0 8px 22px rgba(239, 68, 68, 0.28);
+}
+
+#il-hud .il-settings-toggle {
+  min-height: 38px;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #b9c6df;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+#il-hud .il-settings {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  border: 1px dashed rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+}
+
+#il-hud .il-settings.il-visible {
+  display: flex;
+}
+
+#il-hud .il-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: #b9c6df;
+  font-size: 12px;
+}
+
+#il-hud .il-range {
+  width: 100%;
+  height: 34px;
+  margin: 0;
+  accent-color: #38bdf8;
+  touch-action: manipulation;
+}
+
+#il-hud .il-btn {
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #eaf1ff;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#il-hud .il-btn.il-ghost {
+  min-height: 38px;
+  border-color: rgba(255, 255, 255, 0.1);
+  background: transparent;
+  color: #aab8d3;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+#il-hud .il-btn.il-danger {
+  color: #fca5a5;
+}
+
+#il-hud .il-muted {
+  flex: none;
+  color: #8fa1bf;
+  font-size: 12px;
+}
+
+#il-hud .il-dict-preview {
+  display: none;
+  max-height: 130px;
+  margin: 0;
+  padding: 8px;
+  overflow: auto;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.28);
+  color: #9fb3d1;
+  font: 11px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+#il-hud .il-dict-preview.il-visible {
+  display: block;
+}
+
+#il-hud .il-log {
+  max-height: 96px;
+  margin: 0;
+  padding: 8px;
+  overflow: auto;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.28);
+  color: #9fb3d1;
+  font: 11px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* --------------------------------------------------------------- modal */
+#il-root .il-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) 16px calc(16px + env(safe-area-inset-bottom, 0px));
+  background: rgba(4, 8, 16, 0.74);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+#il-root .il-overlay.il-visible {
+  display: flex;
+}
+
+#il-root .il-modal {
+  width: min(94vw, 380px);
+  max-height: calc(100vh - 32px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  padding: 16px;
+  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 18px;
+  background: #0f1726;
+  color: #eaf1ff;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+  font: 14px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+#il-root .il-modal h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+#il-root .il-modal .il-note {
+  margin: 0 0 12px;
+  color: #9fb3d1;
+  font-size: 12px;
+}
+
+#il-root .il-modal .il-field {
+  display: block;
+  margin: 0 0 10px;
+  color: #b9c6df;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+#il-root .il-modal .il-field input {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 4px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #eaf1ff;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+#il-root .il-modal .il-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 2px 0 10px;
+  color: #b9c6df;
+  font-size: 12px;
+}
+
+#il-root .il-modal .il-check input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: #22c55e;
+}
+
+#il-root .il-modal .il-error {
+  min-height: 18px;
+  margin: 0 0 8px;
+  color: #fca5a5;
+  font-size: 12px;
+}
+
+#il-root .il-modal .il-main {
+  width: 100%;
+  min-height: 52px;
+  margin-top: 2px;
+  padding: 10px 12px;
+  border: 1px solid rgba(34, 197, 94, 0.65);
+  border-radius: 14px;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+#il-root .il-modal .il-btn {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 8px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #eaf1ff;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+#il-root .il-modal .il-link {
+  width: 100%;
+  margin-top: 10px;
+  padding: 6px;
+  border: 0;
+  background: transparent;
+  color: #7dd3fc;
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+#il-root .il-modal .il-muted {
+  margin: 0 0 10px;
+  color: #8fa1bf;
+  font-size: 12px;
+}
+
+@media (max-width: 480px) {
+  #il-hud {
+    width: 94vw;
+    padding: 9px;
+  }
+
+  #il-hud .il-main {
+    min-height: 56px;
+  }
+
+  #il-hud .il-btn {
+    min-height: 46px;
+  }
+}

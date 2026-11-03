@@ -1,0 +1,24 @@
+# Systemy
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Node (testy jsdom)
+node_modules/
+package-lock.json
+
+# Artefakty budowania
+*.zip
+*.crx
+*.pem
+
+# Lokalne dane i konfiguracja z poświadczeniami
+config.local.js
+*.local.json
+.instaling_dict.json
